@@ -20,7 +20,7 @@ label{display:block;color:#c5d7cc;font-size:13px;margin:15px 0 8px}textarea,inpu
 button{border:0;border-radius:12px;background:linear-gradient(135deg,#53eda2,#22ad6b);color:#052015;font-weight:800;padding:13px 18px;cursor:pointer;font-size:14px}button.secondary{background:#173528;color:#c9f5da;border:1px solid #2b6547}button:active{transform:translateY(1px)}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .result{min-height:230px;background:#07150e;border:1px solid #244535;border-radius:13px;padding:16px;white-space:pre-wrap;line-height:1.8;color:#d8eee0;font-size:13px}.hint{font-size:12px;color:var(--muted);line-height:1.7;margin-top:12px}.warning{margin-top:18px;padding:13px;border-radius:12px;background:#332712;border:1px solid #70551d;color:#f7dda0;font-size:12px;line-height:1.7}
 footer{max-width:1180px;margin:26px auto 0;padding:20px 22px 35px;color:#789184;font-size:12px;border-top:1px solid #1b382b}
-.tool-nav{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0 20px}.tool-nav a{display:inline-block;text-decoration:none;color:#bdf5d2;background:#10291d;border:1px solid #2b6547;padding:8px 11px;border-radius:20px;font-size:12px}.tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tool-card{background:#0a1a12;border:1px solid #254b36;border-radius:13px;padding:14px;min-width:0}.tool-card strong{color:#f2fff7}.tool-card p{margin:7px 0 10px}.tool-card a{color:#75e9a9;font-size:13px;text-decoration:none}.tool-tag{display:inline-block;border:1px solid #356447;border-radius:20px;padding:3px 8px;color:#a6edbf;font-size:10px;margin-right:5px}.tool-section{scroll-margin-top:15px}.tool-section h3{margin-bottom:8px}@media(max-width:800px){.layout{grid-template-columns:1fr}header{padding:18px}.status{display:none}main{margin-top:24px}.panel{padding:17px}}@media(max-width:560px){.grid2,.tool-grid{grid-template-columns:1fr}.hero h2{font-size:27px}}
+.tool-nav{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0 20px}.tool-nav a{display:inline-block;text-decoration:none;color:#bdf5d2;background:#10291d;border:1px solid #2b6547;padding:8px 11px;border-radius:20px;font-size:12px}.tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tool-card{background:#0a1a12;border:1px solid #254b36;border-radius:13px;padding:14px;min-width:0}.tool-card strong{color:#f2fff7}.tool-card p{margin:7px 0 10px}.tool-card a{color:#75e9a9;font-size:13px;text-decoration:none}.tool-tag{display:inline-block;border:1px solid #356447;border-radius:20px;padding:3px 8px;color:#a6edbf;font-size:10px;margin-right:5px}.tool-section{scroll-margin-top:15px}.tool-section h3{margin-bottom:8px}.library-controls{display:grid;gap:12px;margin:16px 0 20px}.library-search{position:relative}.library-search input{padding:14px 42px 14px 14px}.library-search:before{content:'⌕';position:absolute;right:15px;top:7px;color:#8cebb4;font-size:24px;pointer-events:none}.filter-chips{display:flex;flex-wrap:wrap;gap:8px}.filter-chip{background:#0a1a12;border:1px solid #315640;color:#c5d7cc;border-radius:22px;padding:8px 12px;font-size:12px;cursor:pointer}.filter-chip.active{background:#1a4b32;border-color:#42e69a;color:#baffd4}.library-count{color:#9db8a8;font-size:12px}.tool-card[hidden],.tool-section[hidden]{display:none!important}.library-empty{display:none;text-align:center;padding:22px;border:1px dashed #356447;border-radius:12px;color:#b8cfc0}.library-empty.show{display:block}@media(max-width:800px){.layout{grid-template-columns:1fr}header{padding:18px}.status{display:none}main{margin-top:24px}.panel{padding:17px}}@media(max-width:560px){.grid2,.tool-grid{grid-template-columns:1fr}.hero h2{font-size:27px}}
 </style>
 </head>
 <body>
@@ -59,57 +59,72 @@ footer{max-width:1180px;margin:26px auto 0;padding:20px 22px 35px;color:#789184;
   </section>
  </div>
  <section class="panel tool-section" style="margin-top:20px">
+  <h3>🧭 ابحث عن أداة الذكاء الاصطناعي المناسبة</h3>
+  <div class="library-controls">
+   <div class="library-search"><input id="toolSearch" type="search" placeholder="ابحث: تحويل صوت، توليد فيديو، إزالة خلفية..." aria-label="البحث في أدوات الذكاء الاصطناعي"></div>
+   <div class="filter-chips" id="toolFilters" aria-label="تصفية حسب الفئة">
+    <button class="filter-chip active" type="button" data-filter="all">كل الأدوات</button>
+    <button class="filter-chip" type="button" data-filter="video">الفيديو</button>
+    <button class="filter-chip" type="button" data-filter="images">الصور والتصميم</button>
+    <button class="filter-chip" type="button" data-filter="voice">الصوت والدبلجة</button>
+    <button class="filter-chip" type="button" data-filter="music">الموسيقى والمؤثرات</button>
+    <button class="filter-chip" type="button" data-filter="edit">التحرير والتحسين</button>
+    <button class="filter-chip" type="button" data-filter="text">الكتابة والبرومبتات</button>
+   </div>
+   <div class="library-count" id="toolCount" aria-live="polite">عرض جميع الأدوات</div>
+  </div>
+  <div class="library-empty" id="toolEmpty">لم نعثر على أدوات مطابقة. جرّب كلمة أخرى أو اختر «كل الأدوات».</div>
   <h3>🎬 أدوات توليد الفيديو بالذكاء الاصطناعي</h3>
   <p class="hint">ابدأ هنا إذا أردت تحويل البرومبت أو الصورة إلى فيديو. الأرصدة والخطط تتغير، لذلك اعتبر علامة «مجاني محدود» وصفاً لخطة مجانية وليست وعداً بتوليد غير محدود.</p>
   <div class="tool-grid">
-   <div class="tool-card"><strong>Google Flow</strong><span class="tool-tag">مجاني محدود</span><p class="hint">استوديو لصناعة المشاهد والأفلام بالذكاء الاصطناعي؛ تحقق من توفره وحدود الرصيد في بلدك.</p><a href="https://labs.google/fx/tools/flow" target="_blank" rel="noopener">فتح Google Flow ↗</a></div>
-   <div class="tool-card"><strong>PixVerse</strong><span class="tool-tag">مجاني محدود</span><p class="hint">توليد فيديو من النص أو الصورة مع حدود استخدام تتغير حسب الحساب.</p><a href="https://pixverse.ai/" target="_blank" rel="noopener">فتح PixVerse ↗</a></div>
-   <div class="tool-card"><strong>Hailuo AI</strong><span class="tool-tag">مجاني محدود</span><p class="hint">إنشاء مقاطع من الوصف والصور؛ قد تتوفر أرصدة مجانية أو عروض محدودة.</p><a href="https://hailuoai.video/" target="_blank" rel="noopener">فتح Hailuo ↗</a></div>
-   <div class="tool-card"><strong>Kling AI</strong><span class="tool-tag">مجاني محدود</span><p class="hint">توليد وتحريك المشاهد من النص والصور؛ راجع الرصيد المتاح وشروط التصدير.</p><a href="https://klingai.com/" target="_blank" rel="noopener">فتح Kling ↗</a></div>
-   <div class="tool-card"><strong>Runway</strong><span class="tool-tag">رصيد تجريبي</span><p class="hint">أدوات فيديو متقدمة؛ الرصيد المجاني قد يكون لمرة واحدة وليس خطة متجددة.</p><a href="https://runwayml.com/" target="_blank" rel="noopener">فتح Runway ↗</a></div>
+   <div class="tool-card" data-category="video" data-keywords="فيديو، توليد فيديو، تحريك، صورة إلى فيديو، text to video, image to video"><strong>Google Flow</strong><span class="tool-tag">مجاني محدود</span><p class="hint">استوديو لصناعة المشاهد والأفلام بالذكاء الاصطناعي؛ تحقق من توفره وحدود الرصيد في بلدك.</p><a href="https://labs.google/fx/tools/flow" target="_blank" rel="noopener">فتح Google Flow ↗</a></div>
+   <div class="tool-card" data-category="video" data-keywords="فيديو، توليد فيديو، تحريك، صورة إلى فيديو, text to video, image to video"><strong>PixVerse</strong><span class="tool-tag">مجاني محدود</span><p class="hint">توليد فيديو من النص أو الصورة مع حدود استخدام تتغير حسب الحساب.</p><a href="https://pixverse.ai/" target="_blank" rel="noopener">فتح PixVerse ↗</a></div>
+   <div class="tool-card" data-category="video" data-keywords="فيديو، توليد فيديو، تحريك، صورة إلى فيديو, text to video, image to video"><strong>Hailuo AI</strong><span class="tool-tag">مجاني محدود</span><p class="hint">إنشاء مقاطع من الوصف والصور؛ قد تتوفر أرصدة مجانية أو عروض محدودة.</p><a href="https://hailuoai.video/" target="_blank" rel="noopener">فتح Hailuo ↗</a></div>
+   <div class="tool-card" data-category="video" data-keywords="فيديو، توليد فيديو، تحريك، صورة إلى فيديو, text to video, image to video"><strong>Kling AI</strong><span class="tool-tag">مجاني محدود</span><p class="hint">توليد وتحريك المشاهد من النص والصور؛ راجع الرصيد المتاح وشروط التصدير.</p><a href="https://klingai.com/" target="_blank" rel="noopener">فتح Kling ↗</a></div>
+   <div class="tool-card" data-category="video" data-keywords="فيديو، توليد فيديو، تحرير فيديو, video generation"><strong>Runway</strong><span class="tool-tag">رصيد تجريبي</span><p class="hint">أدوات فيديو متقدمة؛ الرصيد المجاني قد يكون لمرة واحدة وليس خطة متجددة.</p><a href="https://runwayml.com/" target="_blank" rel="noopener">فتح Runway ↗</a></div>
   </div>
  </section>
  <section class="panel tool-section" id="ai-images" style="margin-top:20px">
   <h3>🖼️ توليد الصور والتصميم</h3>
   <div class="tool-grid">
-   <div class="tool-card"><strong>Microsoft Designer</strong><span class="tool-tag">مجاني محدود</span><p class="hint">تصميم صور ومنشورات وتعديلات بمساعدة الذكاء الاصطناعي مع حدود للاستخدام.</p><a href="https://designer.microsoft.com/" target="_blank" rel="noopener">فتح Designer ↗</a></div>
-   <div class="tool-card"><strong>Adobe Firefly</strong><span class="tool-tag">مجاني محدود</span><p class="hint">إنشاء صور وتعديلات توليدية؛ عدد الاعتمادات المجانية محدود ويتغير حسب الخطة.</p><a href="https://firefly.adobe.com/" target="_blank" rel="noopener">فتح Firefly ↗</a></div>
-   <div class="tool-card"><strong>Leonardo AI</strong><span class="tool-tag">مجاني محدود</span><p class="hint">توليد صور وأصول بصرية، مع حدود رصيد وخصائص تختلف حسب الخطة.</p><a href="https://leonardo.ai/" target="_blank" rel="noopener">فتح Leonardo ↗</a></div>
-   <div class="tool-card"><strong>Ideogram</strong><span class="tool-tag">مجاني محدود</span><p class="hint">إنشاء صور وتصاميم، ومفيد عند الحاجة إلى نص داخل الصورة؛ تحقق من حدود الخطة المجانية.</p><a href="https://ideogram.ai/" target="_blank" rel="noopener">فتح Ideogram ↗</a></div>
-   <div class="tool-card"><strong>Hugging Face Spaces</strong><span class="tool-tag">تجارب مجانية</span><p class="hint">مجموعة كبيرة من أدوات المجتمع لتوليد الصور وتحويلها وتحريرها؛ قد تتوقف بعض التجارب أو تنتظر في الطابور.</p><a href="https://huggingface.co/spaces" target="_blank" rel="noopener">استكشاف Spaces ↗</a></div>
+   <div class="tool-card" data-category="images" data-keywords="صور، توليد صور، تصميم، image generation, image editing"><strong>Microsoft Designer</strong><span class="tool-tag">مجاني محدود</span><p class="hint">تصميم صور ومنشورات وتعديلات بمساعدة الذكاء الاصطناعي مع حدود للاستخدام.</p><a href="https://designer.microsoft.com/" target="_blank" rel="noopener">فتح Designer ↗</a></div>
+   <div class="tool-card" data-category="images" data-keywords="صور، توليد صور، تحسين صور، image generation"><strong>Adobe Firefly</strong><span class="tool-tag">مجاني محدود</span><p class="hint">إنشاء صور وتعديلات توليدية؛ عدد الاعتمادات المجانية محدود ويتغير حسب الخطة.</p><a href="https://firefly.adobe.com/" target="_blank" rel="noopener">فتح Firefly ↗</a></div>
+   <div class="tool-card" data-category="images" data-keywords="صور، توليد صور، كتابة داخل الصورة، image generation"><strong>Leonardo AI</strong><span class="tool-tag">مجاني محدود</span><p class="hint">توليد صور وأصول بصرية، مع حدود رصيد وخصائص تختلف حسب الخطة.</p><a href="https://leonardo.ai/" target="_blank" rel="noopener">فتح Leonardo ↗</a></div>
+   <div class="tool-card" data-category="images" data-keywords="صور، توليد صور، تصميم، تجارب ذكاء اصطناعي، image generation"><strong>Ideogram</strong><span class="tool-tag">مجاني محدود</span><p class="hint">إنشاء صور وتصاميم، ومفيد عند الحاجة إلى نص داخل الصورة؛ تحقق من حدود الخطة المجانية.</p><a href="https://ideogram.ai/" target="_blank" rel="noopener">فتح Ideogram ↗</a></div>
+   <div class="tool-card" data-category="images" data-keywords="صور، توليد صور، أدوات مجانية، تجارب ذكاء اصطناعي"><strong>Hugging Face Spaces</strong><span class="tool-tag">تجارب مجانية</span><p class="hint">مجموعة كبيرة من أدوات المجتمع لتوليد الصور وتحويلها وتحريرها؛ قد تتوقف بعض التجارب أو تنتظر في الطابور.</p><a href="https://huggingface.co/spaces" target="_blank" rel="noopener">استكشاف Spaces ↗</a></div>
   </div>
  </section>
  <section class="panel tool-section" id="ai-voice" style="margin-top:20px">
   <h3>🎙️ تحويل النص إلى صوت والدبلجة</h3>
   <div class="tool-grid">
-   <div class="tool-card"><strong>ElevenLabs</strong><span class="tool-tag">خطة مجانية محدودة</span><p class="hint">تحويل النص إلى كلام، تفريغ الصوت ومؤثرات صوتية؛ الخطة المجانية تتضمن رصيداً شهرياً محدوداً ولا تمنح تلقائياً ترخيصاً تجارياً.</p><a href="https://elevenlabs.io/pricing" target="_blank" rel="noopener">الخطة والأسعار ↗</a></div>
-   <div class="tool-card"><strong>TTSMaker</strong><span class="tool-tag">مجاني بحدود</span><p class="hint">تحويل النص إلى صوت وتنزيل ملفات صوتية؛ راجع حد الأحرف وشروط استخدام الأصوات.</p><a href="https://ttsmaker.com/" target="_blank" rel="noopener">فتح TTSMaker ↗</a></div>
-   <div class="tool-card"><strong>Whisper من OpenAI</strong><span class="tool-tag">مفتوح المصدر</span><p class="hint">تحويل الكلام المسجل إلى نص وتشغيله محلياً؛ يحتاج تثبيتاً وموارد من جهازك، وليس خدمة ويب جاهزة.</p><a href="https://github.com/openai/whisper" target="_blank" rel="noopener">المشروع على GitHub ↗</a></div>
+   <div class="tool-card" data-category="voice" data-keywords="تحويل صوت، تحويل النص إلى صوت، دبلجة، استنساخ صوت، text to speech, tts"><strong>ElevenLabs</strong><span class="tool-tag">خطة مجانية محدودة</span><p class="hint">تحويل النص إلى كلام، تفريغ الصوت ومؤثرات صوتية؛ الخطة المجانية تتضمن رصيداً شهرياً محدوداً ولا تمنح تلقائياً ترخيصاً تجارياً.</p><a href="https://elevenlabs.io/pricing" target="_blank" rel="noopener">الخطة والأسعار ↗</a></div>
+   <div class="tool-card" data-category="voice" data-keywords="تحويل صوت، تحويل النص إلى صوت، دبلجة، text to speech, tts"><strong>TTSMaker</strong><span class="tool-tag">مجاني بحدود</span><p class="hint">تحويل النص إلى صوت وتنزيل ملفات صوتية؛ راجع حد الأحرف وشروط استخدام الأصوات.</p><a href="https://ttsmaker.com/" target="_blank" rel="noopener">فتح TTSMaker ↗</a></div>
+   <div class="tool-card" data-category="voice" data-keywords="تحويل صوت إلى نص، تفريغ صوت، نسخ الكلام، speech to text, transcription"><strong>Whisper من OpenAI</strong><span class="tool-tag">مفتوح المصدر</span><p class="hint">تحويل الكلام المسجل إلى نص وتشغيله محلياً؛ يحتاج تثبيتاً وموارد من جهازك، وليس خدمة ويب جاهزة.</p><a href="https://github.com/openai/whisper" target="_blank" rel="noopener">المشروع على GitHub ↗</a></div>
   </div>
  </section>
  <section class="panel tool-section" id="ai-music" style="margin-top:20px">
   <h3>🎵 إنشاء الموسيقى والمؤثرات الصوتية</h3>
   <div class="tool-grid">
-   <div class="tool-card"><strong>Suno</strong><span class="tool-tag">مجاني محدود</span><p class="hint">إنشاء مقاطع موسيقية من وصف نصي؛ تحقق من حدود الخطة وحقوق الاستخدام قبل نشر الأعمال أو تحقيق الدخل منها.</p><a href="https://suno.com/" target="_blank" rel="noopener">فتح Suno ↗</a></div>
-   <div class="tool-card"><strong>ElevenLabs Sound Effects</strong><span class="tool-tag">رصيد مجاني محدود</span><p class="hint">إنشاء مؤثرات صوتية من وصف نصي ضمن رصيد الخطة المجانية.</p><a href="https://elevenlabs.io/sound-effects" target="_blank" rel="noopener">إنشاء مؤثرات صوتية ↗</a></div>
+   <div class="tool-card" data-category="music" data-keywords="موسيقى، توليد موسيقى، أغاني، music generation"><strong>Suno</strong><span class="tool-tag">مجاني محدود</span><p class="hint">إنشاء مقاطع موسيقية من وصف نصي؛ تحقق من حدود الخطة وحقوق الاستخدام قبل نشر الأعمال أو تحقيق الدخل منها.</p><a href="https://suno.com/" target="_blank" rel="noopener">فتح Suno ↗</a></div>
+   <div class="tool-card" data-category="music" data-keywords="مؤثرات صوتية، توليد مؤثرات، sound effects"><strong>ElevenLabs Sound Effects</strong><span class="tool-tag">رصيد مجاني محدود</span><p class="hint">إنشاء مؤثرات صوتية من وصف نصي ضمن رصيد الخطة المجانية.</p><a href="https://elevenlabs.io/sound-effects" target="_blank" rel="noopener">إنشاء مؤثرات صوتية ↗</a></div>
   </div>
  </section>
  <section class="panel tool-section" id="ai-edit" style="margin-top:20px">
   <h3>✂️ تحرير الفيديو والصور وتحسينها</h3>
   <div class="tool-grid">
-   <div class="tool-card"><strong>CapCut</strong><span class="tool-tag">مجاني + مزايا مدفوعة</span><p class="hint">تحرير الفيديو وإضافة الترجمة والتأثيرات؛ بعض ميزات الذكاء الاصطناعي والقوالب تتطلب Pro أو تخضع لحدود.</p><a href="https://www.capcut.com/" target="_blank" rel="noopener">فتح CapCut ↗</a></div>
-   <div class="tool-card"><strong>Canva</strong><span class="tool-tag">مجاني محدود</span><p class="hint">تصميم منشورات وفيديوهات واستخدام بعض أدوات الذكاء الاصطناعي ضمن حدود الخطة المجانية.</p><a href="https://www.canva.com/" target="_blank" rel="noopener">فتح Canva ↗</a></div>
-   <div class="tool-card"><strong>Upscayl</strong><span class="tool-tag">مجاني ومفتوح المصدر</span><p class="hint">تكبير وتحسين دقة الصور على الكمبيوتر دون رصيد سحابي؛ يعتمد على قدرة جهازك.</p><a href="https://upscayl.org/" target="_blank" rel="noopener">تحميل Upscayl ↗</a></div>
-   <div class="tool-card"><strong>Photopea</strong><span class="tool-tag">استخدام مجاني</span><p class="hint">محرر صور يعمل في المتصفح للقص والتركيب وإزالة العناصر يدوياً؛ ليس كل وظائفه ذكاءً اصطناعياً.</p><a href="https://www.photopea.com/" target="_blank" rel="noopener">فتح Photopea ↗</a></div>
+   <div class="tool-card" data-category="edit" data-keywords="تحرير فيديو، مونتاج، ترجمة، قص فيديو، video editor"><strong>CapCut</strong><span class="tool-tag">مجاني + مزايا مدفوعة</span><p class="hint">تحرير الفيديو وإضافة الترجمة والتأثيرات؛ بعض ميزات الذكاء الاصطناعي والقوالب تتطلب Pro أو تخضع لحدود.</p><a href="https://www.capcut.com/" target="_blank" rel="noopener">فتح CapCut ↗</a></div>
+   <div class="tool-card" data-category="edit" data-keywords="تصميم، تحرير صور وفيديو، منشورات، design"><strong>Canva</strong><span class="tool-tag">مجاني محدود</span><p class="hint">تصميم منشورات وفيديوهات واستخدام بعض أدوات الذكاء الاصطناعي ضمن حدود الخطة المجانية.</p><a href="https://www.canva.com/" target="_blank" rel="noopener">فتح Canva ↗</a></div>
+   <div class="tool-card" data-category="edit" data-keywords="تحسين الصور، تكبير الصور، رفع الدقة، image upscaling"><strong>Upscayl</strong><span class="tool-tag">مجاني ومفتوح المصدر</span><p class="hint">تكبير وتحسين دقة الصور على الكمبيوتر دون رصيد سحابي؛ يعتمد على قدرة جهازك.</p><a href="https://upscayl.org/" target="_blank" rel="noopener">تحميل Upscayl ↗</a></div>
+   <div class="tool-card" data-category="edit" data-keywords="تحرير الصور، إزالة خلفية، قص الصور، photo editor"><strong>Photopea</strong><span class="tool-tag">استخدام مجاني</span><p class="hint">محرر صور يعمل في المتصفح للقص والتركيب وإزالة العناصر يدوياً؛ ليس كل وظائفه ذكاءً اصطناعياً.</p><a href="https://www.photopea.com/" target="_blank" rel="noopener">فتح Photopea ↗</a></div>
   </div>
  </section>
  <section class="panel tool-section" id="ai-text" style="margin-top:20px">
   <h3>✍️ كتابة الأفكار والسيناريوهات والبرومبتات</h3>
   <div class="tool-grid">
-   <div class="tool-card"><strong>Google AI Studio</strong><span class="tool-tag">مجاني بحدود</span><p class="hint">تجربة نماذج Gemini لصياغة المشاهد والحوارات والبرومبتات؛ حدود الاستخدام تختلف حسب النموذج والمنطقة.</p><a href="https://aistudio.google.com/" target="_blank" rel="noopener">فتح AI Studio ↗</a></div>
-   <div class="tool-card"><strong>ChatGPT</strong><span class="tool-tag">خطة مجانية محدودة</span><p class="hint">تطوير الأفكار وكتابة السيناريوهات وتحسين البرومبتات؛ بعض الأدوات والاستخدامات لها حدود.</p><a href="https://chatgpt.com/" target="_blank" rel="noopener">فتح ChatGPT ↗</a></div>
-   <div class="tool-card"><strong>Gemini</strong><span class="tool-tag">خطة مجانية محدودة</span><p class="hint">مساعد للكتابة والتلخيص وتحليل الأفكار وإنشاء المحتوى.</p><a href="https://gemini.google.com/" target="_blank" rel="noopener">فتح Gemini ↗</a></div>
-   <div class="tool-card"><strong>Perplexity</strong><span class="tool-tag">خطة مجانية محدودة</span><p class="hint">البحث وجمع المعلومات مع إظهار المصادر، مع حدود على بعض عمليات البحث المتقدمة.</p><a href="https://www.perplexity.ai/" target="_blank" rel="noopener">فتح Perplexity ↗</a></div>
+   <div class="tool-card" data-category="text" data-keywords="كتابة، سيناريو، برومبت، نصوص، كتابة أفكار، prompts"><strong>Google AI Studio</strong><span class="tool-tag">مجاني بحدود</span><p class="hint">تجربة نماذج Gemini لصياغة المشاهد والحوارات والبرومبتات؛ حدود الاستخدام تختلف حسب النموذج والمنطقة.</p><a href="https://aistudio.google.com/" target="_blank" rel="noopener">فتح AI Studio ↗</a></div>
+   <div class="tool-card" data-category="text" data-keywords="كتابة، سيناريو، برومبت، مساعد ذكاء اصطناعي، prompts"><strong>ChatGPT</strong><span class="tool-tag">خطة مجانية محدودة</span><p class="hint">تطوير الأفكار وكتابة السيناريوهات وتحسين البرومبتات؛ بعض الأدوات والاستخدامات لها حدود.</p><a href="https://chatgpt.com/" target="_blank" rel="noopener">فتح ChatGPT ↗</a></div>
+   <div class="tool-card" data-category="text" data-keywords="كتابة، سيناريو، تلخيص، أفكار"><strong>Gemini</strong><span class="tool-tag">خطة مجانية محدودة</span><p class="hint">مساعد للكتابة والتلخيص وتحليل الأفكار وإنشاء المحتوى.</p><a href="https://gemini.google.com/" target="_blank" rel="noopener">فتح Gemini ↗</a></div>
+   <div class="tool-card" data-category="text" data-keywords="بحث، مصادر، كتابة، معلومات، research"><strong>Perplexity</strong><span class="tool-tag">خطة مجانية محدودة</span><p class="hint">البحث وجمع المعلومات مع إظهار المصادر، مع حدود على بعض عمليات البحث المتقدمة.</p><a href="https://www.perplexity.ai/" target="_blank" rel="noopener">فتح Perplexity ↗</a></div>
   </div>
  </section>
  <section class="panel" style="margin-top:20px">
@@ -149,6 +164,38 @@ async function copyText(text){
 }
 $('copy').onclick=async()=>{const t=$('result').textContent;if(t.startsWith('سيظهر هنا')){alert('أنشئ البرومبت أولاً.');return}const copied=await copyText(t);if(copied){$('copy').textContent='تم النسخ ✓';setTimeout(()=>$('copy').textContent='نسخ البرومبت',1500)}else{alert('تعذر النسخ تلقائياً. حدّد نص البرومبت وانسخه يدوياً.')}};
 $('download').onclick=()=>{const t=$('result').textContent;if(t.startsWith('سيظهر هنا')){alert('أنشئ البرومبت أولاً.');return}const url=URL.createObjectURL(new Blob(['\\uFEFF',t],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='DZ-DUB-MOTION-prompt.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+const toolSearch=$('toolSearch'),toolCount=$('toolCount'),toolEmpty=$('toolEmpty');
+let activeToolFilter='all';
+const normalizeToolText=value=>String(value||'').toLocaleLowerCase('ar').normalize('NFD').replace(/[\\u064B-\\u065F\\u0670]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[^\\p{L}\\p{N}]+/gu,' ').trim();
+function filterTools(){
+ const query=normalizeToolText(toolSearch.value);
+ const terms=query.split(/\\s+/).filter(Boolean);
+ let visible=0;
+ document.querySelectorAll('.tool-section').forEach(section=>{
+  let sectionVisible=0;
+  section.querySelectorAll('.tool-card').forEach(card=>{
+   const searchable=normalizeToolText(card.innerText+' '+(card.dataset.keywords||''));
+   const categoryMatch=activeToolFilter==='all'||card.dataset.category===activeToolFilter;
+   const searchMatch=terms.every(term=>searchable.includes(term));
+   const show=categoryMatch&&searchMatch;
+   card.hidden=!show;
+   if(show){visible++;sectionVisible++}
+  });
+  if(section.querySelector('.tool-card')) section.hidden=sectionVisible===0;
+ });
+ toolEmpty.classList.toggle('show',visible===0);
+ toolCount.textContent='عرض '+visible+' من 23 أداة';
+}
+toolSearch.addEventListener('input',filterTools);
+$('toolFilters').addEventListener('click',event=>{
+ const button=event.target.closest('[data-filter]');
+ if(!button)return;
+ activeToolFilter=button.dataset.filter;
+ $('toolFilters').querySelectorAll('.filter-chip').forEach(chip=>chip.classList.toggle('active',chip===button));
+ filterTools();
+});
+filterTools();
+
 
 </script>
 </body></html>
