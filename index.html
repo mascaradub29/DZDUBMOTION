@@ -166,10 +166,10 @@ $('copy').onclick=async()=>{const t=$('result').textContent;if(t.startsWith('س�
 $('download').onclick=()=>{const t=$('result').textContent;if(t.startsWith('سيظهر هنا')){alert('أنشئ البرومبت أولاً.');return}const url=URL.createObjectURL(new Blob(['\\uFEFF',t],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='DZ-DUB-MOTION-prompt.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 const toolSearch=$('toolSearch'),toolCount=$('toolCount'),toolEmpty=$('toolEmpty');
 let activeToolFilter='all';
-const normalizeToolText=value=>String(value||'').toLocaleLowerCase('ar').normalize('NFD').replace(/[\\u064B-\\u065F\\u0670]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[^\\p{L}\\p{N}]+/gu,' ').trim();
+const normalizeToolText=value=>String(value||'').toLocaleLowerCase('ar').normalize('NFD').replace(/[\u064B-\u065F\u0670]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
 function filterTools(){
  const query=normalizeToolText(toolSearch.value);
- const terms=query.split(/\\s+/).filter(Boolean);
+ const terms=query.split(/\s+/).filter(Boolean);
  let visible=0;
  document.querySelectorAll('.tool-section').forEach(section=>{
   let sectionVisible=0;
