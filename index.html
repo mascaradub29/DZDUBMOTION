@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07130f">
+<title>DZ DUB MOTION</title>
+<style>
+:root{--bg:#07130f;--panel:#0e2119;--panel2:#122b21;--line:#244638;--green:#42e69a;--muted:#a5b9ae;--white:#f2fff7}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0,#153b2a 0,transparent 42%),var(--bg);color:var(--white);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+header{max-width:1180px;margin:auto;padding:24px 22px;display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #1b382b}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,#52f0a4,#168d58);display:grid;place-items:center;color:#052014;font-weight:1000;font-size:21px;box-shadow:0 8px 30px #2de18a33}
+h1{font-size:21px;margin:0;letter-spacing:.4px}.tag{color:var(--muted);font-size:12px;margin-top:4px}.status{border:1px solid #286247;color:#8cf0b9;background:#10271d;border-radius:30px;padding:8px 13px;font-size:12px}
+main{max-width:1180px;margin:34px auto;padding:0 22px}.hero{margin-bottom:26px}.hero h2{font-size:clamp(25px,4vw,40px);margin:0 0 10px}.hero h2 span{color:var(--green)}.hero p{color:var(--muted);line-height:1.8;margin:0;max-width:700px}
+.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:20px}.panel{background:linear-gradient(180deg,#10251c,#0b1b14);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 16px 45px #0003}
+.panel h3{margin:0 0 18px;font-size:17px}.tabs{display:flex;gap:9px;margin-bottom:20px}.tab{border:1px solid var(--line);background:#0a1912;color:var(--muted);padding:10px 15px;border-radius:11px;cursor:pointer}.tab.active{background:#17432e;color:#aaffce;border-color:#36a86e}
+label{display:block;color:#c5d7cc;font-size:13px;margin:15px 0 8px}textarea,input,select{width:100%;background:#081710;border:1px solid #2a4b3a;border-radius:11px;color:var(--white);padding:12px;font:inherit;outline:none}textarea{min-height:125px;resize:vertical}textarea:focus,input:focus,select:focus{border-color:var(--green)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.upload{border:1px dashed #397454;border-radius:13px;padding:18px;text-align:center;color:var(--muted);background:#0a1b13}.upload input{margin-top:12px}.preview{max-width:100%;max-height:180px;object-fit:contain;border-radius:10px;margin-top:12px}
+.checks{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.check{display:flex;align-items:center;gap:7px;background:#10251b;border:1px solid #244b36;border-radius:10px;padding:9px 11px;font-size:12px;color:#d2e8da}.check input{width:auto;accent-color:#42e69a}
+button{border:0;border-radius:12px;background:linear-gradient(135deg,#53eda2,#22ad6b);color:#052015;font-weight:800;padding:13px 18px;cursor:pointer;font-size:14px}button.secondary{background:#173528;color:#c9f5da;border:1px solid #2b6547}button:active{transform:translateY(1px)}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.result{min-height:230px;background:#07150e;border:1px solid #244535;border-radius:13px;padding:16px;white-space:pre-wrap;line-height:1.8;color:#d8eee0;font-size:13px}.hint{font-size:12px;color:var(--muted);line-height:1.7;margin-top:12px}.warning{margin-top:18px;padding:13px;border-radius:12px;background:#332712;border:1px solid #70551d;color:#f7dda0;font-size:12px;line-height:1.7}
+footer{max-width:1180px;margin:26px auto 0;padding:20px 22px 35px;color:#789184;font-size:12px;border-top:1px solid #1b382b}
+@media(max-width:800px){.layout{grid-template-columns:1fr}header{padding:18px}.status{display:none}main{margin-top:24px}.panel{padding:17px}}@media(max-width:460px){.grid2{grid-template-columns:1fr}.hero h2{font-size:27px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">DZ</div><div><h1>DZ DUB MOTION</h1><div class="tag">استوديو تحضير المشاهد للدبلجة اليدوية</div></div></div>
+ <div class="status">نسخة تجريبية · تعمل على الهاتف والكمبيوتر</div>
+</header>
+<main>
+ <section class="hero"><h2>اصنع المشهد بالذكاء الاصطناعي… <span>وأعطه الحياة بصوتك!</span></h2><p>حضّر أفكارك ومشاهدك الصامتة من النص أو الصورة، ثم خذ البرومبت إلى منصة توليد فيديو وأضف صوتك ودبلجتك بنفسك.</p></section>
+ <div class="layout">
+  <section class="panel">
+   <h3>🎬 إعداد المشهد</h3>
+   <div class="tabs"><button class="tab active" id="textTab" type="button">نص إلى مشهد</button><button class="tab" id="imageTab" type="button">صورة إلى مشهد</button></div>
+   <div id="textMode"><label for="scene">اكتب وصف المشهد أو الفكرة</label><textarea id="scene" placeholder="مثال: حافلة كوستر جزائرية خضراء وبيضاء تسير في طريق جبلي وقت الغروب، لقطات سينمائية واسعة..."></textarea></div>
+   <div id="imageMode" hidden><label>ارفع صورة مرجعية</label><div class="upload">اختر صورة لتحويلها إلى مشهد متحرك<input id="imageInput" type="file" accept="image/*"><img id="preview" class="preview" hidden alt="معاينة الصورة"></div><label for="imageDesc">ما الحركة التي تريدها في الصورة؟</label><textarea id="imageDesc" placeholder="مثال: حركة كاميرا بطيئة تقترب من الحافلة مع تحرك خفيف للخلفية..."></textarea></div>
+   <div class="grid2">
+    <div><label for="duration">مدة الفيديو</label><select id="duration"><option>5 ثوانٍ</option><option selected>8 ثوانٍ</option><option>10 ثوانٍ</option><option>15 ثانية</option></select></div>
+    <div><label for="ratio">أبعاد الفيديو</label><select id="ratio"><option value="9:16">عمودي 9:16</option><option value="16:9">أفقي 16:9</option><option value="1:1">مربع 1:1</option></select></div>
+    <div><label for="style">الأسلوب البصري</label><select id="style"><option>واقعي سينمائي</option><option>وثائقي واقعي</option><option>أنيميشن ثلاثي الأبعاد</option><option>كرتوني</option><option>إعلاني فاخر</option></select></div>
+    <div><label for="camera">حركة الكاميرا</label><select id="camera"><option>حركة سينمائية ناعمة</option><option>لقطة ثابتة</option><option>تتبع الجسم</option><option>اقتراب بطيء</option><option>دوران حول المشهد</option></select></div>
+   </div>
+   <div class="checks">
+    <label class="check"><input type="checkbox" checked disabled> بدون حوار</label>
+    <label class="check"><input type="checkbox" checked disabled> بدون تحريك شفاه</label>
+    <label class="check"><input type="checkbox" checked> بدون موسيقى</label>
+    <label class="check"><input type="checkbox" checked> مؤثرات صوتية اختيارية فقط</label>
+   </div>
+   <div class="actions"><button id="generate">إنشاء البرومبت</button><button class="secondary" id="clear">مسح الحقول</button></div>
+  </section>
+  <section class="panel">
+   <h3>✨ البرومبت الجاهز</h3>
+   <div class="result" id="result">سيظهر هنا وصف إنجليزي منظم للمشهد بعد الضغط على «إنشاء البرومبت».</div>
+   <div class="actions"><button id="copy">نسخ البرومبت</button><button class="secondary" id="download">تحميل TXT</button></div>
+   <p class="hint">انسخ النص واستخدمه في منصة توليد فيديو تدعم النص أو الصورة. اختر إعدادات المدة والأبعاد نفسها داخل المنصة.</p>
+   <div class="warning"><strong>ملاحظة مهمة:</strong> هذه النسخة واجهة تحضير وبرومبتات، وليست محرك توليد فيديو. توليد MP4 فعلياً يتطلب ربط API لخدمة خارجية، وقد تكون خدماتها المجانية محدودة أو تتطلب حساباً.</div>
+  </section>
+ </div>
+ <section class="panel" style="margin-top:20px">
+  <h3>🌐 منصات يمكنك تجربة البرومبت فيها</h3>
+  <div class="grid2">
+   <div><strong>PixVerse</strong><p class="hint">توليد فيديو من نص أو صورة حسب الخطة المتاحة.</p><a href="https://pixverse.ai/" target="_blank" rel="noopener">فتح PixVerse ↗</a></div>
+   <div><strong>Hailuo AI</strong><p class="hint">تحويل الوصف أو الصورة إلى مقطع فيديو.</p><a href="https://hailuoai.video/" target="_blank" rel="noopener">فتح Hailuo ↗</a></div>
+   <div><strong>Kling AI</strong><p class="hint">توليد مشاهد وحركة من النص والصورة.</p><a href="https://klingai.com/" target="_blank" rel="noopener">فتح Kling ↗</a></div>
+   <div><strong>Runway</strong><p class="hint">أدوات إنشاء وتحرير الفيديو بالذكاء الاصطناعي.</p><a href="https://runwayml.com/" target="_blank" rel="noopener">فتح Runway ↗</a></div>
+  </div>
+ </section>
+</main>
+<footer>© DZ DUB MOTION — مشروع مستقل لتحضير مشاهد صامتة جاهزة للدبلجة اليدوية.</footer>
+<script>
+const $=id=>document.getElementById(id);let mode='text';
+$('textTab').onclick=()=>{mode='text';$('textMode').hidden=false;$('imageMode').hidden=true;$('textTab').classList.add('active');$('imageTab').classList.remove('active')};
+$('imageTab').onclick=()=>{mode='image';$('textMode').hidden=true;$('imageMode').hidden=false;$('imageTab').classList.add('active');$('textTab').classList.remove('active')};
+$('imageInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const img=$('preview');img.src=URL.createObjectURL(f);img.hidden=false});
+function makePrompt(){
+ const base=mode==='text'?$('scene').value.trim():$('imageDesc').value.trim();
+ if(!base){alert(mode==='text'?'اكتب وصف المشهد أولاً.':'اكتب الحركة المطلوبة وارفع صورة مرجعية.');return}
+ const duration=$('duration').value,ratio=$('ratio').value,style=$('style').value,camera=$('camera').value;
+ const source=mode==='text'?'Create a video from this text description:':'Animate the provided reference image according to this direction:';
+ const noMusic=$('generate').dataset.nomusic;
+ const prompt=`${source}\n${base}\n\nVisual style: ${style}.\nCamera movement: ${camera}.\nDuration: ${duration}.\nAspect ratio: ${ratio}.\n\nSTRICT REQUIREMENTS:\n- Silent visual scene intended for manual voice dubbing later.\n- No dialogue, no narration, no speaking, no lip movement, and no mouth synchronization.\n- Characters remain silent; avoid visible speech gestures.\n- ${$('generate').dataset.nomusic==='yes'?'No music and no audio track.':'No music; visual-only output preferred.'}\n- Preserve visual continuity, realistic motion, coherent anatomy and stable objects.\n- No subtitles, captions, watermarks, logos, or on-screen text unless explicitly requested.\n- Deliver a clean cinematic video with the requested framing.`;
+ $('result').textContent=prompt;
+}
+$('generate').onclick=makePrompt;
+$('clear').onclick=()=>{$('scene').value='';$('imageDesc').value='';$('imageInput').value='';$('preview').hidden=true;$('result').textContent='سيظهر هنا وصف إنجليزي منظم للمشهد بعد الضغط على «إنشاء البرومبت».'};
+$('copy').onclick=async()=>{const t=$('result').textContent;if(t.startsWith('سيظهر هنا'))return;try{await navigator.clipboard.writeText(t);$('copy').textContent='تم النسخ ✓';setTimeout(()=>$('copy').textContent='نسخ البرومبت',1500)}catch(e){alert('تعذر النسخ تلقائياً. حدّد النص وانسخه يدوياً.')}};
+$('download').onclick=()=>{const t=$('result').textContent;if(t.startsWith('سيظهر هنا'))return;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/plain;charset=utf-8'}));a.download='DZ-DUB-MOTION-prompt.txt';a.click();URL.revokeObjectURL(a.href)};
+document.querySelector('.checks input[type=checkbox]:not([disabled])').addEventListener('change',e=>{$('generate').dataset.nomusic=e.target.checked?'yes':'no'});
+$('generate').dataset.nomusic='yes';
+</script>
+</body></html>
