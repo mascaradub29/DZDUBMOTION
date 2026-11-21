@@ -45,8 +45,8 @@ footer{max-width:1180px;margin:26px auto 0;padding:20px 22px 35px;color:#789184;
    <div class="checks">
     <label class="check"><input type="checkbox" checked disabled> بدون حوار</label>
     <label class="check"><input type="checkbox" checked disabled> بدون تحريك شفاه</label>
-    <label class="check"><input type="checkbox" checked> بدون موسيقى</label>
-    <label class="check"><input type="checkbox" checked> مؤثرات صوتية اختيارية فقط</label>
+    <label class="check"><input id="noMusic" type="checkbox" checked> بدون موسيقى</label>
+    <label class="check"><input id="soundEffects" type="checkbox" checked> مؤثرات صوتية اختيارية فقط</label>
    </div>
    <div class="actions"><button id="generate">إنشاء البرومبت</button><button class="secondary" id="clear">مسح الحقول</button></div>
   </section>
@@ -73,21 +73,22 @@ footer{max-width:1180px;margin:26px auto 0;padding:20px 22px 35px;color:#789184;
 const $=id=>document.getElementById(id);let mode='text';
 $('textTab').onclick=()=>{mode='text';$('textMode').hidden=false;$('imageMode').hidden=true;$('textTab').classList.add('active');$('imageTab').classList.remove('active')};
 $('imageTab').onclick=()=>{mode='image';$('textMode').hidden=true;$('imageMode').hidden=false;$('imageTab').classList.add('active');$('textTab').classList.remove('active')};
-$('imageInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const img=$('preview');img.src=URL.createObjectURL(f);img.hidden=false});
+let previewUrl=null;
+$('imageInput').addEventListener('change',e=>{const f=e.target.files[0],img=$('preview');if(previewUrl){URL.revokeObjectURL(previewUrl);previewUrl=null}if(!f){img.removeAttribute('src');img.hidden=true;return}if(!f.type.startsWith('image/')){alert('يرجى اختيار ملف صورة صالح.');e.target.value='';img.hidden=true;return}previewUrl=URL.createObjectURL(f);img.src=previewUrl;img.hidden=false});
 function makePrompt(){
  const base=mode==='text'?$('scene').value.trim():$('imageDesc').value.trim();
- if(!base){alert(mode==='text'?'اكتب وصف المشهد أولاً.':'اكتب الحركة المطلوبة وارفع صورة مرجعية.');return}
+ if(mode==='image'&&!$('imageInput').files.length){alert('ارفع صورة مرجعية أولاً.');return}
+ if(!base){alert(mode==='text'?'اكتب وصف المشهد أولاً.':'اكتب الحركة المطلوبة للصورة أولاً.');return}
  const duration=$('duration').value,ratio=$('ratio').value,style=$('style').value,camera=$('camera').value;
  const source=mode==='text'?'Create a video from this text description:':'Animate the provided reference image according to this direction:';
- const noMusic=$('generate').dataset.nomusic;
- const prompt=`${source}\n${base}\n\nVisual style: ${style}.\nCamera movement: ${camera}.\nDuration: ${duration}.\nAspect ratio: ${ratio}.\n\nSTRICT REQUIREMENTS:\n- Silent visual scene intended for manual voice dubbing later.\n- No dialogue, no narration, no speaking, no lip movement, and no mouth synchronization.\n- Characters remain silent; avoid visible speech gestures.\n- ${$('generate').dataset.nomusic==='yes'?'No music and no audio track.':'No music; visual-only output preferred.'}\n- Preserve visual continuity, realistic motion, coherent anatomy and stable objects.\n- No subtitles, captions, watermarks, logos, or on-screen text unless explicitly requested.\n- Deliver a clean cinematic video with the requested framing.`;
+ const audioRules=[ $('noMusic').checked?'No background music.':'Background music is allowed if supported by the video platform.', $('soundEffects').checked?'Optional subtle environmental sound effects only; no voices.':'No sound effects.'].join('\n- ');
+ const prompt=`${source}\n${base}\n\nVisual style: ${style}.\nCamera movement: ${camera}.\nDuration: ${duration}.\nAspect ratio: ${ratio}.\n\nSTRICT REQUIREMENTS:\n- Visual scene intended for manual voice dubbing later.\n- No dialogue, no narration, no speaking, no lip movement, and no mouth synchronization.\n- Characters remain silent; avoid visible speech gestures.\n- ${audioRules}\n- Preserve visual continuity, realistic motion, coherent anatomy and stable objects.\n- No subtitles, captions, watermarks, logos, or on-screen text unless explicitly requested.\n- Deliver a clean cinematic video with the requested framing.`;
  $('result').textContent=prompt;
 }
 $('generate').onclick=makePrompt;
-$('clear').onclick=()=>{$('scene').value='';$('imageDesc').value='';$('imageInput').value='';$('preview').hidden=true;$('result').textContent='سيظهر هنا وصف إنجليزي منظم للمشهد بعد الضغط على «إنشاء البرومبت».'};
+$('clear').onclick=()=>{$('scene').value='';$('imageDesc').value='';$('imageInput').value='';if(previewUrl){URL.revokeObjectURL(previewUrl);previewUrl=null}$('preview').removeAttribute('src');$('preview').hidden=true;$('result').textContent='سيظهر هنا وصف إنجليزي منظم للمشهد بعد الضغط على «إنشاء البرومبت».'};
 $('copy').onclick=async()=>{const t=$('result').textContent;if(t.startsWith('سيظهر هنا'))return;try{await navigator.clipboard.writeText(t);$('copy').textContent='تم النسخ ✓';setTimeout(()=>$('copy').textContent='نسخ البرومبت',1500)}catch(e){alert('تعذر النسخ تلقائياً. حدّد النص وانسخه يدوياً.')}};
 $('download').onclick=()=>{const t=$('result').textContent;if(t.startsWith('سيظهر هنا'))return;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/plain;charset=utf-8'}));a.download='DZ-DUB-MOTION-prompt.txt';a.click();URL.revokeObjectURL(a.href)};
-document.querySelector('.checks input[type=checkbox]:not([disabled])').addEventListener('change',e=>{$('generate').dataset.nomusic=e.target.checked?'yes':'no'});
-$('generate').dataset.nomusic='yes';
+
 </script>
 </body></html>
